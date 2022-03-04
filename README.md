@@ -1,14 +1,13 @@
-# Autograding Example: Java
-This example project is written in Java, and tested with Gradle/JUnit.
+# 課題 6-2: パッケージの利用
 
-### The assignment
-The tests are currently failing because of an output mismatch. Fixing the `System.out.println` in the main method will make the tests green.
+### 課題の説明
+logicパッケージを作成し、課題6-1で作成したCalculatorクラスをそのパッケージに所属させたうえで、
+同様の実行結果が得られるようにmainメソッドを書き換えなさい。
 
-### Setup command
-N/A
-
-### Run command
-`gradle test`
-
-### Notes
-- The JDK is installed on GitHub Actions machines, so you're also able to directly invoke `javac`, `java`, or any other CLI command included in the JDK. 
+### 実行例 (実行時引数が2,7のとき)
+```
+積を計算します
+14
+商を計算します
+0.2857142857142857
+```
