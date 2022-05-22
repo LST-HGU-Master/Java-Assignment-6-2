@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import java.io.*;
 /**
- * @version (20220510)
+ * @version (20220522)
+ *   suporting both println and print("\n") on Windows
  * 
  * (注意) unit6フォルダ―の中にlogicフォルダが作られて、そこにCalculatorクラスのファイル が
  * 　　　　保存されない限り、このテストクラスは testPackageLogic() にエラーが表示される
@@ -43,7 +44,7 @@ public class Prog62Test {
         Prog62.main(new String[]{"72", "66"});
 
         // assertion
-        String prints[] = bos.toString().split(System.lineSeparator());
+        String prints[] = bos.toString().split("\r\n|\n");
         try {
             assertEquals("4752", prints[1]);
             assertEquals(1.0909, Double.parseDouble(prints[3]), 0.0001f);
@@ -79,7 +80,7 @@ public class Prog62Test {
         Prog62.main(new String[]{"7", "6"});
 
         // assertion
-        String prints[] = bos.toString().split(System.lineSeparator());
+        String prints[] = bos.toString().split("\r\n|\n");
         String msg;
         try {
             msg = "積を計算します";
@@ -88,7 +89,7 @@ public class Prog62Test {
             );
             msg  ="商を計算します";        
             assertEquals(msg, prints[2],
-                        "実行結果の1行目のprint文の出力が「" + msg +"」と違います!"
+                        "実行結果の3行目のprint文の出力が「" + msg +"」と違います!"
             );
         } catch (AssertionError err) {
             after();
