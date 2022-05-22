@@ -46,8 +46,10 @@ public class Prog62Test {
         // assertion
         String prints[] = bos.toString().split("\r\n|\n");
         try {
-            assertEquals("4752", prints[1]);
-            assertEquals(1.0909, Double.parseDouble(prints[3]), 0.0001f);
+            assertEquals("4752", prints[1],"1つ目の計算結果が期待した結果と一致しません!");
+            assertEquals(1.0909, Double.parseDouble(prints[3]), 0.0001f,
+                        "２つ目の計算結果が期待した結果と一致しません!"
+            );
          } catch (AssertionError err) {
             after();
             throw err;     
@@ -63,8 +65,9 @@ public class Prog62Test {
     {
         // test if package logic & its Calculator class are set properly
         try {
-            assertEquals(2, logic.Calculator.time(1 , 2));
-            assertEquals(0.5, logic.Calculator.divide(1 , 2), 0.0001f);
+            assertEquals(2,   logic.Calculator.time(1 , 2), "package logic内のCalculatorメソッドの積の結果が異なります。");
+            assertEquals(0.5, logic.Calculator.divide(1 , 2), 0.0001f,"package logic内のCalculatorメソッドの商の結果が異なります。");
+            assertEquals(0,   logic.Calculator.divide(26 , 0), 0.0001f, "package logic内のCalculatorメソッドの商の計算結果が指示と異なります!");
         } catch (AssertionError err) {
             after();
             throw err;     
