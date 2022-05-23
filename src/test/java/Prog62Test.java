@@ -59,20 +59,6 @@ public class Prog62Test {
         }
  
     }
-    
-    @Test
-    public void testPackageLogic()
-    {
-        // test if package logic & its Calculator class are set properly
-        try {
-            assertEquals(2,   logic.Calculator.time(1 , 2), "package logic内のCalculatorメソッドの積の結果が異なります。");
-            assertEquals(0.5, logic.Calculator.divide(1 , 2), 0.0001f,"package logic内のCalculatorメソッドの商の結果が異なります。");
-            assertEquals(0,   logic.Calculator.divide(26 , 0), 0.0001f, "package logic内のCalculatorメソッドの商の計算結果が指示と異なります!");
-        } catch (AssertionError err) {
-            after();
-            throw err;     
-        }
-    }
 
     @Test
     public void testPrintedMessage()
