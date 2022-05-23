@@ -75,7 +75,7 @@ public class Prog62Test {
     }
 
     @Test
-    public void testPrintdMessage()
+    public void testPrintedMessage()
     {
         // action
         // in.inputln("2"); // 標準入力をテストする場合
