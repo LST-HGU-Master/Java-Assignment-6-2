@@ -1,0 +1,82 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    - name: TestLogic.Calculator.time
+      id: testlogic-calculator-time
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestLogic.Calculator.time
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "CalculatorTest2.testTime"
+        timeout: 10
+        max-score: 2
+    - name: TestLogic.Calculator.divide
+      id: testlogic-calculator-divide
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestLogic.Calculator.divide
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "CalculatorTest2.testDivide"
+        timeout: 10
+        max-score: 2
+    - name: TestLogic.Calculator.divideZero
+      id: testlogic-calculator-dividezero
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestLogic.Calculator.divideZero
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "CalculatorTest2.testDivideZero"
+        timeout: 10
+        max-score: 2
+    - name: testMain
+      id: testmain
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMain
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "Prog62Test.testMain"
+        timeout: 10
+        max-score: 2
+    - name: testPrintedMessage
+      id: testprintedmessage
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testPrintedMessage
+        setup-command: ''
+        command: sudo locale-gen ja_JP.UTF-8 && export LANG=ja_JP.UTF-8 && sudo update-locale
+          && gradle test --tests "Prog62Test.testPrintedMessage"
+        timeout: 10
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTLOGIC-CALCULATOR-TIME_RESULTS: "${{steps.testlogic-calculator-time.outputs.result}}"
+        TESTLOGIC-CALCULATOR-DIVIDE_RESULTS: "${{steps.testlogic-calculator-divide.outputs.result}}"
+        TESTLOGIC-CALCULATOR-DIVIDEZERO_RESULTS: "${{steps.testlogic-calculator-dividezero.outputs.result}}"
+        TESTMAIN_RESULTS: "${{steps.testmain.outputs.result}}"
+        TESTPRINTEDMESSAGE_RESULTS: "${{steps.testprintedmessage.outputs.result}}"
+      with:
+        runners: testlogic-calculator-time,testlogic-calculator-divide,testlogic-calculator-dividezero,testmain,testprintedmessage
