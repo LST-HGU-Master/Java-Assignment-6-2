@@ -51,65 +51,52 @@ public class Prog62Test {
     }
 
     @Test
-    public void testMainCalculation72_66() {
+    public void testMainCalculations() {
+        // --- パターン1: 通常計算 ("72", "66") ---
         Prog62.main(new String[]{"72", "66"});
 
-        String[] lines = bos.toString().replace("\r\n", "\n").split("\n");
-        assertTrue(lines.length >= 4, "実行結果の行数が不足しています。");
+        String[] lines1 = bos.toString().replace("\r\n", "\n").split("\n");
+        assertTrue(lines1.length >= 4, "実行結果の行数が不足しています。");
+        assertTrue(lines1[1].contains("4752"), "引数 「72 66」 に対する積の計算結果（4752）が正しく出力されていません。");
 
-        // 積の検証 (2行目想定)
-        assertTrue(lines[1].contains("4752"), 
-            "1つ目の計算結果（72 × 66 = 4752）が正しく出力されていないか、出力位置が異なります。"
-        );
-
-        // 商の検証 (4行目想定)
         try {
-            double actualDivide = Double.parseDouble(lines[3].trim());
-            assertEquals(1.09091, actualDivide, 0.001, 
-                "2つ目の計算結果（72 ÷ 66）が正しく出力されていません。logic.Calculator.divide() を呼び出していますか？"
+            assertEquals(1.09091, Double.parseDouble(lines1[3].trim()), 0.001, 
+                "引数 「72 66」 に対する商の計算結果（1.09091...）が正しく出力されていません。"
             );
         } catch (NumberFormatException e) {
-            fail("4行目の計算結果を数値（double）として読み込めませんでした。余計な文字列が含まれていないか確認してください。");
+            fail("4行目の計算結果を数値（double）として読み込めませんでした。");
         }
-    }
 
-    @Test
-    public void testMainCalculation2_7() {
+        // --- パターン2: 実行例 ("2", "7") ---
+        bos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bos));
+
         Prog62.main(new String[]{"2", "7"});
 
-        String[] lines = bos.toString().replace("\r\n", "\n").split("\n");
-        assertTrue(lines.length >= 4, "実行結果の行数が不足しています。");
+        String[] lines2 = bos.toString().replace("\r\n", "\n").split("\n");
+        assertTrue(lines2.length >= 4, "実行結果の行数が不足しています。");
+        assertTrue(lines2[1].contains("14"), "実行例の引数 「2 7」 に対する積の計算結果（14）が正しく出力されていません。");
 
-        // 積の検証 (2 * 7 = 14)
-        assertTrue(lines[1].contains("14"), 
-            "実行例の引数 「2 7」 に対する積の計算結果（14）が正しく出力されていません。"
-        );
-
-        // 商の検証 (2 / 7 = 0.285714...)
         try {
-            double actualDivide = Double.parseDouble(lines[3].trim());
-            assertEquals(0.285714, actualDivide, 0.001, 
+            assertEquals(0.285714, Double.parseDouble(lines2[3].trim()), 0.001, 
                 "実行例の引数 「2 7」 に対する商の計算結果（0.285714...）が正しく出力されていません。"
             );
         } catch (NumberFormatException e) {
             fail("4行目の計算結果を数値（double）として読み込めませんでした。");
         }
-    }
 
-    @Test
-    public void testMainZeroDivisor() {
+        // --- パターン3: ゼロ除算 ("10", "0") ---
+        bos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bos));
+
         Prog62.main(new String[]{"10", "0"});
 
-        String[] lines = bos.toString().replace("\r\n", "\n").split("\n");
-        assertTrue(lines.length >= 4, "実行結果の行数が不足しています。");
+        String[] lines3 = bos.toString().replace("\r\n", "\n").split("\n");
+        assertTrue(lines3.length >= 4, "実行結果の行数が不足しています。");
+        assertTrue(lines3[1].contains("0"), "10 × 0 の結果（0）が出力されていません。");
 
-        // 積の検証 (10 * 0 = 0)
-        assertTrue(lines[1].contains("0"), "10 × 0 の結果（0）が出力されていません。");
-
-        // 商の検証 (10 / 0 -> 0 または 0.0)
         try {
-            double actualDivide = Double.parseDouble(lines[3].trim());
-            assertEquals(0.0, actualDivide, 0.0001, 
+            assertEquals(0.0, Double.parseDouble(lines3[3].trim()), 0.0001, 
                 "第2引数が 0 の場合、商の出力結果は 0 (0.0) になる必要があります。"
             );
         } catch (NumberFormatException e) {
