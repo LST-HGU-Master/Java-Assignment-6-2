@@ -11,7 +11,7 @@ public class CalculatorTest2 {
     String pkgMthdName = "logicパッケージ内のCalculatorの";
     
     @Test
-    public void testTimeMultiply()
+    public void testMultiply()
     {
         // assertion
         assertEquals(2,  logic.Calculator.multiply(1 , 2), pkgMthdName+"積の計算結果が間違っています!");
