@@ -11,12 +11,12 @@ public class CalculatorTest2 {
     String pkgMthdName = "logicパッケージ内のCalculatorの";
     
     @Test
-    public void testTime()
+    public void testTimeMultiply()
     {
         // assertion
-        assertEquals(2,  logic.Calculator.time(1 , 2), pkgMthdName+"積の計算結果が間違っています!");
-        assertEquals(36, logic.Calculator.time(4 , 9), pkgMthdName+"積の計算結果が間違っています!");
-        assertEquals(-15, logic.Calculator.time(-3, 5), pkgMthdName + "積の計算結果が間違っています!（負の数の計算を確認してください）");
+        assertEquals(2,  logic.Calculator.multiply(1 , 2), pkgMthdName+"積の計算結果が間違っています!");
+        assertEquals(36, logic.Calculator.multiply(4 , 9), pkgMthdName+"積の計算結果が間違っています!");
+        assertEquals(-15, logic.Calculator.multiply(-3, 5), pkgMthdName + "積の計算結果が間違っています!（負の数の計算を確認してください）");
     }
 
     @Test
